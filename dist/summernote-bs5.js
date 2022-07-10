@@ -7,7 +7,7 @@
  * Copyright 2013- Alan Hong and contributors
  * Summernote may be freely distributed under the MIT license.
  *
- * Date: 2022-07-10T02:01Z
+ * Date: 2022-07-10T19:31Z
  *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1980,14 +1980,6 @@ var isTextarea = makePredByNodeName('TEXTAREA');
 
 function value($node, stripLinebreaks) {
   var val = isTextarea($node[0]) ? $node.val() : $node.html();
-  var tagsToReplace = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;'
-  };
-  val = val.replace(/(?:&(?!amp;|gt;|lt;)|>|<)/g, function (tag) {
-    return tagsToReplace[tag] || tag;
-  });
 
   if (stripLinebreaks) {
     return val.replace(/[\n\r]/g, '');
@@ -6580,7 +6572,8 @@ var CodeView = /*#__PURE__*/function () {
     value: function purify(value) {
       if (this.options.codeviewFilter) {
         // filter code view regex
-        value = value.replace(this.options.codeviewFilterRegex, ''); // allow specific iframe tag
+        value = value.replace(this.options.codeviewFilterRegex, '');
+        value = typeof this.options.codeviewFilterFn === 'function' && this.options.codeviewFilterFn(value); // allow specific iframe tag
 
         if (this.options.codeviewIframeFilter) {
           var whitelist = this.options.codeviewIframeWhitelistSrc.concat(this.options.codeviewIframeWhitelistSrcBase);
