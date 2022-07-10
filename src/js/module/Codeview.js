@@ -73,6 +73,7 @@ export default class CodeView {
     if (this.options.codeviewFilter) {
       // filter code view regex
       value = value.replace(this.options.codeviewFilterRegex, '');
+      value = typeof this.options.codeviewFilterFn === 'function' && this.options.codeviewFilterFn(value);
       // allow specific iframe tag
       if (this.options.codeviewIframeFilter) {
         const whitelist = this.options.codeviewIframeWhitelistSrc.concat(this.options.codeviewIframeWhitelistSrcBase);
