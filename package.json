@@ -9,20 +9,16 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/summernote/summernote.git"
-  },
-  "author": {
-    "name": "hackerwins",
-    "email": "<susukang98@gmail.com>"
+    "url": "https://github.com/ubreakifix/summernote.git"
   },
   "main": "dist/summernote.js",
-  "engines" : { 
-    "node" : ">=17.0.0" 
+  "engines": {
+    "node": ">=17.0.0"
   },
   "scripts": {
     "dev": "eslint config && webpack serve --config=./config/webpack.development.js --progress",
     "prebuild": "node ./config/build-fonts.js",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --node-env production --mode=production --config=./config/webpack.production.js --progress",
+    "build": "webpack --node-env production --mode=production --config=./config/webpack.production.js --progress",
     "lint": "eslint src plugin test config",
     "test": "NODE_OPTIONS=--openssl-legacy-provider karma start .karma/config.js --single-run",
     "test:grep": "karma run .karma/config.js -- --grep",
