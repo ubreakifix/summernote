@@ -1079,7 +1079,18 @@ const isTextarea = makePredByNodeName('TEXTAREA');
  * @param {Boolean} [stripLinebreaks] - default: false
  */
 function value($node, stripLinebreaks) {
-  const val = isTextarea($node[0]) ? $node.val() : $node.html();
+  let val = isTextarea($node[0]) ? $node.val() : $node.html();
+  
+  const tagsToReplace = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;'
+  };
+
+  val = val.replace(/(?:&(?!amp;|gt;|lt;)|>|<)/g, function(tag) {
+    return tagsToReplace[tag] || tag;
+  });
+
   if (stripLinebreaks) {
     return val.replace(/[\n\r]/g, '');
   }
